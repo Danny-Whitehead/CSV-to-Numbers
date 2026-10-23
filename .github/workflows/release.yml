@@ -16,7 +16,7 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Build app
-        run: ./build-app.sh
+        run: VERSION="${GITHUB_REF_NAME}" ./build-app.sh
 
       - name: Zip and publish
         env:

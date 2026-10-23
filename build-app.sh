@@ -8,6 +8,9 @@ set -e
 cd "$(dirname "$0")"
 
 APP_ID="com.automation.csvtonumbers"
+# Version: $VERSION if set (the release workflow passes the tag), else the latest git tag, else "0.0.0".
+VERSION="${VERSION:-$(git describe --tags --abbrev=0 2>/dev/null || echo 0.0.0)}"
+VERSION="${VERSION#v}"
 QA="quick-action/Open in Numbers (as text).workflow"
 TMP="$(mktemp -d)"
 trap 'rm -rf "$TMP"' EXIT
@@ -23,6 +26,9 @@ cat "CSV to Numbers.js" "App Entry.js" > "$TMP/app.js"
 PLIST="$APP/Contents/Info.plist"
 /usr/bin/plutil -replace CFBundleIdentifier -string "$APP_ID" "$PLIST"
 /usr/bin/plutil -replace CFBundleName -string "CSV to Numbers" "$PLIST"
+/usr/bin/plutil -replace CFBundleShortVersionString -string "$VERSION" "$PLIST"
+/usr/bin/plutil -replace CFBundleVersion -string "$VERSION" "$PLIST"
+/usr/bin/plutil -replace NSHumanReadableCopyright -string "Copyright © 2026 Danny Whitehead. MIT licence." "$PLIST"
 /usr/bin/plutil -replace NSAppleEventsUsageDescription -string "CSV to Numbers needs to control Numbers to open your CSV file." "$PLIST"
 # Declare CSV explicitly so Finder's "Open with > Change All" accepts this app for .csv files.
 /usr/bin/plutil -replace CFBundleDocumentTypes -json '[{"CFBundleTypeName":"CSV document","CFBundleTypeRole":"Editor","CFBundleTypeExtensions":["csv"],"LSItemContentTypes":["public.comma-separated-values-text"],"LSHandlerRank":"Alternate"},{"CFBundleTypeRole":"Viewer","CFBundleTypeExtensions":["*"],"CFBundleTypeOSTypes":["****"]}]' "$PLIST"
