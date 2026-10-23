@@ -1,6 +1,6 @@
 name: Release
 
-# Pushing a tag such as v1.0.0 builds the zip and publishes a GitHub release.
+# Pushing a tag such as v1.0.0 builds the app on macOS and publishes a GitHub release.
 on:
   push:
     tags:
@@ -11,19 +11,20 @@ permissions:
 
 jobs:
   release:
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
     steps:
       - uses: actions/checkout@v4
 
-      - name: Build and publish
+      - name: Build app
+        run: ./build-app.sh
+
+      - name: Zip and publish
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          NAME="CSV-to-Numbers-${GITHUB_REF_NAME}"
-          mkdir "$NAME"
-          cp "CSV to Numbers.js" Launcher.js Install.command Uninstall.command README.md LICENSE "$NAME/"
-          chmod +x "$NAME/Install.command" "$NAME/Uninstall.command"
-          zip -r "$NAME.zip" "$NAME"
-          gh release create "$GITHUB_REF_NAME" "$NAME.zip" \
+          ZIP="CSV-to-Numbers-${GITHUB_REF_NAME}.zip"
+          ditto -c -k --keepParent "dist/CSV to Numbers.app" "$ZIP"
+          cp "$ZIP" CSV-to-Numbers.zip
+          gh release create "$GITHUB_REF_NAME" "$ZIP" CSV-to-Numbers.zip \
             --title "CSV to Numbers ${GITHUB_REF_NAME}" \
             --generate-notes
