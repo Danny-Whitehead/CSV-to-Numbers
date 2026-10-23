@@ -15,8 +15,12 @@ format to Number in Numbers. **Leave the SKU column as Text.**
 
 ## Installing (any Mac, nothing but macOS and Numbers needed)
 1. Download the latest `CSV-to-Numbers-vX.Y.Z.zip` from the [Releases](../../releases) page and unzip it.
-2. Double-click `Install.command`. Because it was downloaded, macOS may block it the first time:
-   right-click it → **Open** → **Open**.
+2. Double-click `Install.command`. Because it was downloaded and isn't notarised by Apple, macOS will
+   say it "could not verify" it. To allow it, either:
+   - click **Done**, then **System Settings → Privacy & Security → Open Anyway** (next to
+     "Install.command was blocked"), or
+   - in Terminal, from the unzipped folder, run `xattr -dr com.apple.quarantine .` and double-click again.
+   (On macOS 15 and later, right-click → Open no longer bypasses this.)
 
 It copies the script to `~/Library/Application Support/CSV to Numbers/`, builds
 `/Applications/CSV to Numbers.app` (or `~/Applications` on a standard, non-admin account that can't
@@ -36,7 +40,7 @@ Select any `.csv` file, press **⌘I**, choose *CSV to Numbers* under **Open wit
   but switched off (`DIRECT_PASTE = false`). Don't enable it without re-testing on real data.
   Workaround: copy the table from the opened file into a new document (Numbers-to-Numbers copy keeps text as text).
 - Numbers has no bulk-fill scripting (about 50 cells/second), so it can't be filled directly.
-- The app is not code-signed or notarised, hence the right-click → Open step on first run.
+- The app is not code-signed or notarised, hence the one-off "Open Anyway" step when first installing.
 
 ## Releasing (maintainers)
 Push a version tag and GitHub Actions builds the zip and publishes the release:
