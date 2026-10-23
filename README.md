@@ -1,6 +1,6 @@
 # CSV to Numbers (text-safe)
 
-Opens stok.ly CSV exports in Numbers **without** Numbers converting SKUs to numbers
+Opens CSV exports in Numbers **without** Numbers converting SKUs to numbers
 (`00123` stays `00123`, `1234500` keeps its zeros).
 
 ## Using it
@@ -12,22 +12,39 @@ It converts the CSV to a temporary `.xlsx` in which every cell is text and opens
 No files are left next to the CSV. Needs no extra permissions or prompts.
 Every cell is text, so if you need to calculate on a price/quantity column, change that column's
 format to Number in Numbers. **Leave the SKU column as Text.**
-When finished, File → Export To → CSV in Numbers for re-import to stok.ly.
 
 ## Installing (any Mac, nothing but macOS and Numbers needed)
-Double-click `Install.command` (right-click → Open the first time if macOS objects). It copies the
-script to `~/Library/Application Support/CSV to Numbers/`, builds `/Applications/CSV to Numbers.app`
-(or `~/Applications` on a standard, non-admin account that can't write to `/Applications`)
-and adds the Quick Action. Run it again after editing `CSV to Numbers.js`.
+1. Download the latest `CSV-to-Numbers-vX.Y.Z.zip` from the [Releases](../../releases) page and unzip it.
+2. Double-click `Install.command`. Because it was downloaded, macOS may block it the first time:
+   right-click it → **Open** → **Open**.
+
+It copies the script to `~/Library/Application Support/CSV to Numbers/`, builds
+`/Applications/CSV to Numbers.app` (or `~/Applications` on a standard, non-admin account that can't
+write to `/Applications`) and adds the Quick Action. Run it again after editing `CSV to Numbers.js`.
+To remove everything, run `Uninstall.command`.
+
+Requires macOS and Apple Numbers. Nothing else (no Python, no Homebrew, no LibreOffice).
+
+## Making CSV files open this way by default
+Select any `.csv` file, press **⌘I**, choose *CSV to Numbers* under **Open with**, then **Change All…**.
 
 ## Not done / known limitations
-- **Your default template styling is NOT applied.** The result is the xlsx import, with Numbers'
+- **Your default new-document template is NOT applied.** The result is the xlsx import, with Numbers'
   own table styling. Applying a template means pasting into a new document, which needs the
   Accessibility permission, and in testing Numbers still converted some pasted cells (`00123`
   became `123`) even with the cells formatted as Text. That code is still in `CSV to Numbers.js`
   but switched off (`DIRECT_PASTE = false`). Don't enable it without re-testing on real data.
+  Workaround: copy the table from the opened file into a new document (Numbers-to-Numbers copy keeps text as text).
 - Numbers has no bulk-fill scripting (about 50 cells/second), so it can't be filled directly.
+- The app is not code-signed or notarised, hence the right-click → Open step on first run.
+
+## Releasing (maintainers)
+Push a version tag and GitHub Actions builds the zip and publishes the release:
+`git tag v1.0.0 && git push origin v1.0.0`
 
 ## Notes
 - Source: `CSV to Numbers.js` (logic) and `Launcher.js` (the tiny app).
 - Handles UTF-8 (with/without BOM) and Windows-1252 files; comma, semicolon or tab delimiters; quoted fields and line breaks inside cells.
+
+## Licence
+[MIT](LICENSE)

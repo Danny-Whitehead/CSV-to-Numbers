@@ -1,0 +1,29 @@
+name: Release
+
+# Pushing a tag such as v1.0.0 builds the zip and publishes a GitHub release.
+on:
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build and publish
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          NAME="CSV-to-Numbers-${GITHUB_REF_NAME}"
+          mkdir "$NAME"
+          cp "CSV to Numbers.js" Launcher.js Install.command Uninstall.command README.md LICENSE "$NAME/"
+          chmod +x "$NAME/Install.command" "$NAME/Uninstall.command"
+          zip -r "$NAME.zip" "$NAME"
+          gh release create "$GITHUB_REF_NAME" "$NAME.zip" \
+            --title "CSV to Numbers ${GITHUB_REF_NAME}" \
+            --generate-notes
