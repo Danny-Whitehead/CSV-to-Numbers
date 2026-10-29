@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<title>CSV to Numbers – User Guide</title>
+<style>
+  @page { size: A4; margin: 18mm 18mm; }
+  body { font: 11pt/1.5 -apple-system, "Helvetica Neue", Arial, sans-serif; color: #1d1d1f; }
+  h1 { font-size: 24pt; margin: 0 0 4pt; }
+  h2 { font-size: 15pt; margin: 20pt 0 6pt; border-bottom: 1px solid #d2d2d7; padding-bottom: 3pt; break-after: avoid; }
+  h3 { font-size: 12pt; margin: 14pt 0 4pt; break-after: avoid; }
+  p, ul, ol { margin: 6pt 0; }
+  li { margin: 3pt 0; }
+  code { font: 10pt Menlo, monospace; background: #f2f2f4; padding: 1pt 4pt; border-radius: 3pt; }
+  .lead { font-size: 12pt; color: #424245; }
+  .note { background: #fff6e0; border-left: 4px solid #f5a623; padding: 6pt 10pt; margin: 10pt 0; break-inside: avoid; }
+  table { border-collapse: collapse; width: 100%; margin: 8pt 0; }
+  th, td { border: 1px solid #d2d2d7; padding: 5pt 8pt; text-align: left; vertical-align: top; }
+  th { background: #f2f2f4; }
+  tr { break-inside: avoid; }
+  section { break-inside: avoid-page; }
+</style>
+</head>
+<body>
+
+<h1>CSV to Numbers</h1>
+<p class="lead">Opens CSV files in Apple Numbers <strong>without</strong> Numbers changing your SKUs.
+<code>00123</code> stays <code>00123</code>, and <code>1234500</code> keeps its zeros.</p>
+<p>You need a Mac with Numbers. Nothing else to install.</p>
+
+<h2>Install (2 minutes, one time only)</h2>
+<ol>
+  <li>Unzip <strong>CSV-to-Numbers.zip</strong> if you haven't already (double-click it).</li>
+  <li>Drag <strong>CSV to Numbers</strong> into your <strong>Applications</strong> folder.</li>
+  <li>Open <strong>CSV to Numbers</strong> from Applications.</li>
+  <li>macOS will warn that it "could not verify" the app. This is expected, because the app isn't from the App Store. Click <strong>Done</strong>, then:
+    <ol type="a">
+      <li>Open <strong>System Settings → Privacy &amp; Security</strong>.</li>
+      <li>Scroll down and click <strong>Open Anyway</strong> next to "CSV to Numbers was blocked".</li>
+      <li>Enter your Mac password and click <strong>Open</strong>.</li>
+    </ol>
+  </li>
+  <li>A small window appears confirming it's ready. Click <strong>Done</strong>.</li>
+</ol>
+<div class="note">If <strong>Open Anyway</strong> doesn't appear, see Troubleshooting on the last page.</div>
+
+<h2>Use</h2>
+<p>Pick whichever you prefer:</p>
+<ul>
+  <li><strong>Right-click a CSV</strong> in Finder → <strong>Quick Actions → Open in Numbers (as text)</strong>.</li>
+  <li><strong>Drag CSV files</strong> onto the app.</li>
+  <li><strong>Double-click a CSV</strong>, once you've made this app the default (see below).</li>
+</ul>
+<p>The file opens in Numbers with every cell as text. Your original CSV isn't changed, and no extra files are left behind.</p>
+
+<h3>Make double-click work for CSV files (optional)</h3>
+<ol>
+  <li>Click any <code>.csv</code> file once and press <strong>⌘ + I</strong>.</li>
+  <li>Under <strong>Open with</strong>, choose <strong>CSV to Numbers</strong>.</li>
+  <li>Click <strong>Change All…</strong> and confirm.</li>
+</ol>
+<p>To undo this, repeat the steps and choose another app.</p>
+
+<h2>Things to know</h2>
+<ul>
+  <li><strong>Everything opens as text.</strong> To add up a price or quantity column, select it and change its format to <strong>Number</strong>. <strong>Leave the SKU column as Text.</strong></li>
+  <li>The file opens with Numbers' standard table styling, not your own default template. To use your template, copy the table into a new document. Copying from Numbers to Numbers keeps the text as it is.</li>
+  <li>Files saved with commas, semicolons or tabs all work, as do Excel-style special characters.</li>
+</ul>
+
+<section>
+<h2>Troubleshooting</h2>
+<table>
+  <tr><th style="width:32%">Problem</th><th>What to do</th></tr>
+  <tr><td><strong>Open Anyway</strong> isn't in System Settings</td><td>Open <strong>Terminal</strong> and run <code>xattr -dr com.apple.quarantine "/Applications/CSV to Numbers.app"</code>, then open the app again.</td></tr>
+  <tr><td>No right-click option</td><td>Open <strong>CSV to Numbers</strong> once from Applications. If it's still missing, go to <strong>System Settings → Privacy &amp; Security → Extensions → Finder</strong> and enable <strong>Open in Numbers (as text)</strong>.</td></tr>
+  <tr><td>The right-click option does nothing</td><td>The app has been moved or deleted. Put <strong>CSV to Numbers</strong> back in Applications.</td></tr>
+  <tr><td>Zeros are still being dropped</td><td>Check you opened the file with this app or the right-click option, not by double-clicking while Numbers is the default.</td></tr>
+</table>
+
+<h2>Uninstall</h2>
+<p>Drag <strong>CSV to Numbers</strong> from Applications to the Bin, then delete
+<code>~/Library/Services/Open in Numbers (as text).workflow</code>.</p>
+</section>
+
+</body>
+</html>
