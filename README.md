@@ -6,7 +6,7 @@ Opens CSV files in Apple Numbers **without** Numbers changing your SKUs.
 Needs a Mac with Numbers. Nothing else to install.
 
 ## Install (2 minutes)
-1. Download `CSV-to-Numbers.zip` from the [latest release](../../releases/latest) and double-click it to unzip.
+1. Download `CSV-to-Numbers.zip` from the [latest release](../../releases/latest) and double-click it to unzip. The folder contains the app and a printable guide (**Read Me First**).
 2. Drag **CSV to Numbers** into your **Applications** folder.
 3. Open **CSV to Numbers** from Applications. macOS will warn that it "could not verify" the app. This is expected, because the app isn't from the App Store. Click **Done**, then:
    1. Open **System Settings → Privacy & Security**.

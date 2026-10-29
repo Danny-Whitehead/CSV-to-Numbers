@@ -23,7 +23,11 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           # One asset with a fixed name, so releases/latest/download/CSV-to-Numbers.zip always works.
-          ditto -c -k --keepParent "dist/CSV to Numbers.app" CSV-to-Numbers.zip
+          # The zip holds the app plus the printable guide (built from guide/ and committed).
+          mkdir stage
+          ditto "dist/CSV to Numbers.app" "stage/CSV to Numbers.app"
+          cp "guide/CSV to Numbers - Guide.pdf" "stage/Read Me First - CSV to Numbers.pdf"
+          ditto -c -k "stage" CSV-to-Numbers.zip
           gh release create "$GITHUB_REF_NAME" CSV-to-Numbers.zip \
             --title "CSV to Numbers ${GITHUB_REF_NAME}" \
             --generate-notes

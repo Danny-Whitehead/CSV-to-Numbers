@@ -19,7 +19,8 @@ The build needs only macOS (`osacompile`, `plutil`, `codesign`).
 ## Colleague guide (PDF)
 `guide/guide.html` is the source of the printable user guide. After editing it (or the README's user
 instructions, which it mirrors), run `guide/build-guide.sh` to regenerate `guide/CSV to Numbers - Guide.pdf`
-(needs Google Chrome). Share the PDF alongside `CSV-to-Numbers.zip`.
+(needs Google Chrome) and commit the PDF. The release workflow copies it into `CSV-to-Numbers.zip` as
+`Read Me First - CSV to Numbers.pdf`, next to the app, so rebuild and commit it before tagging a release.
 
 ## Behaviour
 - Converts the CSV to a temporary `.xlsx` with every cell as text, then opens it in Numbers. Nothing is left next to the CSV.
